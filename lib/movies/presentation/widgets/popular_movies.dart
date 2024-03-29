@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/network/api_constants.dart';
 import 'package:movies_app/core/utils/enums.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_bloc.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_state.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_bloc.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_state.dart';
+import 'package:movies_app/movies/presentation/screens/movie_detail_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PopularWidget extends StatelessWidget {
@@ -43,7 +44,11 @@ class PopularWidget extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: InkWell(
                         onTap: () {
-                          /// TODO : NAVIGATE TO  MOVIE DETAILS
+                               Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MovieDetailScreen(id: state.popularMovies[index].id)));
                         },
                         child: ClipRRect(
                           borderRadius:

@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/services/services_locator.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_bloc.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_event.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_bloc.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_event.dart';
 import 'package:movies_app/movies/presentation/widgets/now_playing_movies.dart';
 import 'package:movies_app/movies/presentation/widgets/popular_movies.dart';
 import 'package:movies_app/movies/presentation/widgets/popular_see_more.dart';
@@ -22,9 +22,8 @@ class MoviesScreen extends StatelessWidget {
         ..add(GetNowPlayingMoviesEvent())
         ..add(GetPopularMoviesEvent())
         ..add(GetTopRatedMoviesEvent()),
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade900,
-        body: const SingleChildScrollView(
+      child: const Scaffold(
+        body: SingleChildScrollView(
           key: Key('movieScrollView'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

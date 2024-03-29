@@ -2,12 +2,13 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/core/usecase/base_usecase.dart';
 import 'package:movies_app/core/utils/enums.dart';
 import 'package:movies_app/movies/domain/use_cases/get_now_playing_usecase.dart';
 import 'package:movies_app/movies/domain/use_cases/get_popular_usecase.dart';
 import 'package:movies_app/movies/domain/use_cases/get_top_rated_usecase.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_event.dart';
-import 'package:movies_app/movies/presentation/manager/bloc/movies_state.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_event.dart';
+import 'package:movies_app/movies/presentation/manager/Movies_bloc/movies_state.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   final GetNowPlayingMoviesUseCase getNowPlayingMoviesUseCase;
@@ -27,13 +28,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   FutureOr<void> getTopRatedMovies(event, emit) async {
-    final result = await getTopRatedMoviesUseCase();
+    final result = await getTopRatedMoviesUseCase(const NoParams());
 
     result.fold(
         (l) => emit(
               state.copyWith(
-                  topRatedMessage: l.message,
-                  topRatedState: RequestState.error),
+                topRatedMessage: l.message,
+                topRatedState: RequestState.error,
+              ),
             ),
         (r) => emit(state.copyWith(
               topRatedMovies: r,
@@ -42,12 +44,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   FutureOr<void> _getPopularMovies(event, emit) async {
-    final result = await getPopularMoviesUseCase();
+    final result = await getPopularMoviesUseCase(const NoParams());
 
     result.fold(
         (l) => emit(
               state.copyWith(
-                  popularMessage: l.message, popularState: RequestState.error),
+                popularMessage: l.message,
+                popularState: RequestState.error,
+              ),
             ),
         (r) => emit(state.copyWith(
               popularMovies: r,
@@ -56,13 +60,14 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   FutureOr<void> _getNowPlayingMovies(event, emit) async {
-    final result = await getNowPlayingMoviesUseCase();
+    final result = await getNowPlayingMoviesUseCase(const NoParams());
 
     result.fold(
         (l) => emit(
               state.copyWith(
-                  nowPlayinMessage: l.message,
-                  nowPlayingState: RequestState.error),
+                nowPlayinMessage: l.message,
+                nowPlayingState: RequestState.error,
+              ),
             ),
         (r) => emit(state.copyWith(
               nowPlayingMovies: r,
