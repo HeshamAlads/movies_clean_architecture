@@ -183,9 +183,10 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
-                  sliver: SliverToBoxAdapter(
+
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
                     child: FadeInUp(
                       from: 20,
                       duration: const Duration(milliseconds: 500),
@@ -200,11 +201,9 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 // Tab(text: 'More like this'.toUpperCase()),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
-                  sliver: _showRecommendations(),
-                ),
+                SliverToBoxAdapter(child: _showRecommendations()),
               ],
             );
           case RequestState.error:
@@ -247,11 +246,15 @@ class MovieDetailContent extends StatelessWidget {
           case RequestState.loading:
             return const Center(child: CircularProgressIndicator());
           case RequestState.success:
-            return SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final recommendation = state.recommendations[index];
-                  return FadeInUp(
+            return GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.recommendations.length,
+              itemBuilder: (context, index) {
+                final recommendation = state.recommendations[index];
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 24.0),
+                  child: FadeInUp(
                     from: 20,
                     duration: const Duration(milliseconds: 500),
                     child: ClipRRect(
@@ -278,10 +281,9 @@ class MovieDetailContent extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                  );
-                },
-                childCount: state.recommendations.length,
-              ),
+                  ),
+                );
+              },
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
