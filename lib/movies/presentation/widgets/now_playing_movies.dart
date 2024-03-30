@@ -31,7 +31,7 @@ class NowPlayingWidget extends StatelessWidget {
               child: CarouselSlider(
                 options: CarouselOptions(
                   height: 460.0,
-                  viewportFraction: 0.88,
+                  viewportFraction: 1,
                   autoPlay: true,
                   onPageChanged: (index, reason) {},
                 ),
